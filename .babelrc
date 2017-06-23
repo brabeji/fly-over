@@ -1,0 +1,26 @@
+{
+  "extends": "re-app-builder/configs/.babelrc",
+  "plugins": [
+	[
+	  "module-resolver",
+	  {
+		"root": [
+		  "./src"
+		],
+		"alias": {
+		  "i18n": "./src/i18n",
+		  "components": "./src/components",
+		  "examples": "./src/examples",
+		  "wrappers": "./src/wrappers",
+		  "form-fields": "./src/form-fields",
+		  "fonts": "./src/fonts",
+		  "modules": "./src/modules",
+		  "screens": "./src/screens",
+		  "stylesheets": "./src/stylesheets",
+		  "utils": "./src/utils",
+		  "spec": "./spec"
+		}
+	  }
+	]
+  ]
+}

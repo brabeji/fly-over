@@ -1,0 +1,8 @@
+.idea
+node_modules
+manifest
+public
+npm-debug.log*
+yarn-error.log
+.env
+.env.devserver

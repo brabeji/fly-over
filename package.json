@@ -1,0 +1,29 @@
+{
+  "scripts": {
+    "ab": "node ./node_modules/re-app-builder/bin",
+    "clean": "rm -rf ./public",
+    "dev": "npm run clean && export $(cat .env.devserver | xargs) && NODE_ENV=development npm run ab dev",
+    "build:dev": "NODE_ENV=development npm run ab build",
+    "build": "NODE_ENV=production npm run ab build",
+    "lint": "eslint ./src",
+    "install-deps": "yarn install --pure-lockfile",
+    "prepush": "npm run lint"
+  },
+  "devDependencies": {
+    "re-app-builder": "^1.0.0-dev.28"
+  },
+  "dependencies": {
+    "classnames": "^2.2.5",
+    "client-core": "https://github.com/stackscz/client-core.git#069cd4356684f523ea7711152c3840feb72cf39a",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.0",
+    "react-redux": "^5.0.5",
+    "react-router": "^4.1.1",
+    "react-router-dom": "^4.1.1",
+    "react-router-redux": "5.0.0-alpha.6",
+    "redux": "^3.7.0",
+    "redux-saga": "^0.15.3",
+    "reselect": "^3.0.1",
+    "seamless-immutable": "^7.1.2"
+  }
+}
