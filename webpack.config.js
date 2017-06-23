@@ -15,11 +15,9 @@ module.exports = function () {
 			port: parseInt(process.env.DEV_PORT, 10),
 		},
 		plugins: [
-            new webpack.DefinePlugin({
-                'process.env': {
-                    'FB_APP_ID': process.env.FB_APP_ID
-                }
-            })
+            new webpack.EnvironmentPlugin({
+                FB_APP_ID: process.env.FB_APP_ID,
+            }),
 		]
 	};
 
