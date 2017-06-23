@@ -1,0 +1,46 @@
+@import "../../stylesheets/base"
+
+.LoginButton
+  color: $white
+  background-color: #3C5A99
+  font-size: 25px
+  line-height: 30px
+  position: relative
+  padding: 10px
+  z-index: 1000
+  cursor: pointer
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.45)
+  border: 3px solid #3C5A99
+  border-radius: 3px
+  transition: all ease .25s
+
+  .path1,
+  .path2
+    transition: all ease .25s
+
+  &:hover
+    color: #3C5A99
+    background-color: $white
+
+    .path1
+      fill: #3C5A99
+
+    .path2
+      fill: #ffffff
+
+
+
+
+  &-holder
+    position: absolute
+    width: 100%
+    top: 450px
+    z-index: 1000
+    text-align: center
+
+  &-svg
+    margin-right: 10px
+    height: 30px
+    width: auto
+    position: relative
+    top: 4px
