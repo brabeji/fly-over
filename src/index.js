@@ -21,7 +21,14 @@ const store = createStore(
 
 ReactDOM.render(
 	<Provider store={store}>
-		<App />
+		<App
+			loadingElement={
+				<div className="Loading Loading--fixed">
+					Loading...
+				</div>
+			}
+			googleMapURL="https://maps.googleapis.com/maps/api/js?libraries=geometry,drawing,places"
+		/>
 	</Provider>,
 	document.getElementById('root')
 );
