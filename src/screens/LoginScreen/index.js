@@ -21,19 +21,18 @@ const renderLoginScreen = (props) => {
 			<Logo />
 			<Planet />
 
-			<LoginButton error>
-				Facebook
-			</LoginButton>
+			<div className="LoginButton-holder">
+				<FacebookLogin
+					appId="305457849865465"
+					scope="public_profile,publish_actions"
+					autoLoad={true}
+					fields="name,email,picture"
+					icon="fa-facebook"
+					textButton=" Login"
+					callback={facebookLoginButtonClick}
+				/>
+			</div>
 
-			<FacebookLogin
-				appId="305457849865465"
-				scope="public_profile,publish_actions"
-				autoLoad={true}
-				fields="name,email,picture"
-				icon="fa-facebook"
-				textButton="Facebook Login"
-				callback={facebookLoginButtonClick}
-			/>
 		</div>
 	);
 };

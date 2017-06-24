@@ -2,6 +2,7 @@ import React from 'react';
 import { compose, withHandlers, withState, pure } from 'recompose';
 import withScriptjs from "react-google-maps/lib/async/withScriptjs";
 import { connect } from 'react-redux';
+import doOnPropsChange from 'client-core/lib/utils/doOnPropsChange';
 
 const FB_APP_ID = process.env.FB_APP_ID;
 
@@ -11,7 +12,7 @@ const GOOGLE_API_KEY = 'AIzaSyCtTfmY2KB9JziKF2N1SgaEyty2GY1_ZP0';
 import { get as g } from 'lodash';
 
 // Actions
-import { receiveUser, post } from 'modules/flyover/actions';
+import { receiveUser, post, geolocate } from 'modules/flyover/actions';
 
 // Screens
 import LoginScreen from './screens/LoginScreen';
@@ -37,7 +38,18 @@ const withAppScreen = compose(
 		doPost: ({ dispatch, user }) => () => {
 			dispatch(post({ data: {} }))
 		},
+		handleGeolocate: ({ dispatch }) => () => {
+			dispatch(geolocate());
+		},
     }),
+	doOnPropsChange(
+		['user'],
+		({ user, handleGeolocate, geolocation }) => {
+			if (user && !geolocation) {
+				handleGeolocate();
+			}
+		}
+	),
     pure,
 );
 
@@ -51,7 +63,7 @@ const renderAppScreen = (props) => {
 
 	console.log(props);
 
-	if(!user) {
+	if(!user || g(user, 'status') === 'unknown') {
 		return (
 			<LoginScreen
 				facebookLoginButtonClick={handleFacebookCallback}
