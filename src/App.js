@@ -13,6 +13,7 @@ import { get as g } from 'lodash';
 
 // Actions
 import { receiveUser, post, geolocate } from 'modules/flyover/actions';
+import Loading from 'components/Loading'
 
 // Screens
 import LoginScreen from './screens/LoginScreen';
@@ -72,7 +73,7 @@ const renderAppScreen = (props) => {
 	}
 
 	if(geolocating) {
-		return <div>Loading...</div>
+		return <Loading />
 	}
 
 	if(!geolocation) {
