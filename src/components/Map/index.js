@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { withGoogleMap, GoogleMap, Marker, Polyline } from 'react-google-maps';
 import { compose, pure } from 'recompose';
 
+import './index.sass';
+
 class Map extends Component {
 	constructor() {
 		super();

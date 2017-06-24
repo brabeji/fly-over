@@ -1,0 +1,42 @@
+@import "../../stylesheets/base"
+
+.Loading
+  width: 102px
+  position: relative
+  margin: 0 auto
+  padding: 20px
+
+  &-text
+    color: $white
+    display: block
+    text-align: center
+    font-family: 'Roboto', sans-serif
+    font-weight: 700
+
+  .globe
+    margin-right: 6px
+    position: inherit!important
+    display: inline-block!important
+    animation: bounce 3s infinite
+
+  .Loading-globe-1
+    svg
+      animation-delay: 1.6s
+
+  .Loading-globe-2
+    animation-delay: 1s
+
+    svg
+      animation-delay: 3.2s
+
+  .Loading-globe-3
+    animation-delay: 2s
+
+
+@keyframes bounce
+  0%, 20%, 50%, 80%, 100%
+    transform: translateY(0)
+  40%
+    transform: translateY(-30px)
+  60%
+    transform: translateY(0)

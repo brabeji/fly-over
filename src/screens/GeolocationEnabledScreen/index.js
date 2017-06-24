@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 // Components
 import Map from '../../components/Map';
 import InvitationForm from 'components/InvitationForm';
+import Title from 'components/Title';
 
 // Actions
 import { fetchFlights } from 'modules/flyover/actions';
@@ -47,7 +48,7 @@ const renderGeolocationEnabledScreen = (props) => {
 
 	return (
 		<div>
-			<h2>Geolocation Screen</h2>
+      <Title>Geolocation Screen </Title>
 
 			you are here:
 			<pre>{JSON.stringify(geolocation, null, 2)}</pre>
@@ -71,11 +72,7 @@ const renderGeolocationEnabledScreen = (props) => {
 				)}
 				googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyA0xV8WndscdK7e11dUbaoA2A2migsqlPc&libraries=drawing,places"
 				containerElement={
-					<div style={{
-						height: 500,
-						width: 500,
-					}}
-					/>
+					<div className="Map" />
 				}
 				mapElement={mapElement}
 				onMapLoad={noop}

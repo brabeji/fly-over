@@ -6,28 +6,16 @@ import './index.sass';
 
 const Input = (props) => {
   const {
-    input: {
-      value,
-      name,
-      ...input
-    },
     type,
     placeholder,
-    readOnly,
-    meta: {
-      pristine,
-      active,
-      valid,
-      error,
-      submitFailed,
-    },
     disabled,
     showCheckWhenValid,
+    readOnly,
+    pristine,
+    empty,
+    active,
     dark,
   } = props;
-
-  const empty = !value;
-  const finalError = error && submitFailed;
 
   return (
   <div
@@ -36,12 +24,9 @@ const Input = (props) => {
     'Input',
     {
       readOnly,
-      error: finalError,
       pristine,
       empty,
       active,
-      filled: !!value,
-      hasCheck: valid && showCheckWhenValid,
       dark,
     }
     )
@@ -50,14 +35,7 @@ const Input = (props) => {
     <label className={be('Input', 'label')} htmlFor={`${name}-id`}>
       <span className={be('Input', 'labelText')}>{placeholder}</span>
       <input
-      {...input}
-      value={value}
-      name={name}
-      type={type}
       className={be('Input', 'text')}
-      readOnly={readOnly}
-      disabled={disabled}
-      id={`${name}-id`}
       />
     </label>
   </div>
