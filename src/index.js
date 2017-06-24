@@ -27,7 +27,7 @@ ReactDOM.render(
 					Loading...
 				</div>
 			}
-			googleMapURL="https://maps.googleapis.com/maps/api/js?libraries=geometry,drawing,places"
+			googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyA0xV8WndscdK7e11dUbaoA2A2migsqlPc&libraries=drawing,places"
 		/>
 	</Provider>,
 	document.getElementById('root')
