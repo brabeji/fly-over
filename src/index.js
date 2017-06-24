@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import App from './App';
 import createStore from 'client-core/lib/utils/createStore';
+import formsModule from 'client-core/lib/modules/forms';
 import flyoverModule from 'modules/flyover';
 
 // Styles
@@ -11,6 +12,7 @@ import './stylesheets/base.sass';
 const store = createStore(
 	{
 		modules: [
+			formsModule,
 			flyoverModule,
 		],
 		enhancers: [

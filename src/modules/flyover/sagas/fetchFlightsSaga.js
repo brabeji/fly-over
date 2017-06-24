@@ -1,84 +1,36 @@
-import {call} from 'redux-saga/effects';
+import { get as g, reduce, isArray } from 'lodash';
+import { takeEvery } from 'redux-saga';
+import { call, put } from 'redux-saga/effects';
+import { FETCH_FLIGHTS, receiveFlights, receiveFetchFlightsError } from 'modules/flyover/actions';
 
 import fetch from 'isomorphic-fetch';
+import axios from 'axios';
 
-const query = `
-fragment RouteStop on RouteStop {
-  airport {
-    city {
-      name
-    }
-    locationId
-  }
-}
+const API_URL = 'https://api.skypicker.com/flights_multi';
 
-query AllFlights($search: FlightsSearchInput!) {
-  allFlights(search: $search, first: 1) {
-    pageInfo {
-      hasNextPage
-      hasPreviousPage
-      startCursor
-      endCursor
-    }
-    edges {
-      cursor
-      node {
-        price {
-          amount
-          currency
-        }
-        legs {
-          flightNumber
-          recheckRequired
-          duration
-          departure {
-            ...RouteStop
-          }
-          arrival {
-            ...RouteStop
-          }
-          airline {
-            name
-            code
-            logoUrl
-            isLowCost
-          }
-        }
-      }
-    }
-  }
-}
-`;
+function* fetchFlightsTask({ payload: { query } }) {
 
-const variables = {
-	search: {
-		from: {
-			radius: { // Prague
-				lat: 50.08,
-				lng: 14.44,
-				radius: 100
+	let to = g(query, 'to', []);
+	if (!isArray(to)) {
+		to = [to];
+	}
+	const body = {
+		requests: to.map((toValue) => {
+			return {
+				flyFrom: g(query, 'flyFrom'),
+				to: toValue,
 			}
-		},
-		to: [
-			{ location: 'Brno' },
-			{ location: 'London' }
-		],
-		dateFrom: '2017-12-24',
-		dateTo: '2017-12-30',
-	},
-};
-
-export default function* fetchFlightsSaga() {
-
-	const requestConfig = {
-		method: 'POST',
-			body: JSON.stringify({ query, variables }),
+		})
 	};
-
 	try {
-		yield call(fetch, requestConfig);
-	}catch (e) {
-
+		const result = yield call(axios.post, API_URL, body, { params: { partner: 'picky' } });
+		yield put(receiveFlights({ flights: g(result, 'data') }));
+	} catch (error) {
+		yield put(receiveFetchFlightsError({ error }))
 	}
 
+}
+
+export default function* watchFetchFlights() {
+	yield takeEvery(FETCH_FLIGHTS, fetchFlightsTask);
 }

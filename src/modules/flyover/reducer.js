@@ -3,7 +3,12 @@ import t from 'tcomb';
 
 import createReducer from 'client-core/lib/utils/createReducer';
 
-import { RECEIVE_USER } from './actions';
+import {
+	RECEIVE_USER,
+	GEOLOCATE,
+	RECEIVE_GEOLOCATION,
+	RECEIVE_GEOLOCATION_FAILURE,
+} from './actions';
 
 const defaultCenter = {
 	lat: 50.0835754,
@@ -13,11 +18,16 @@ const defaultCenter = {
 export default createReducer(
 	t.struct({
 		user: t.maybe(t.Object),
+		geolocating: t.Boolean,
+		geolocation: t.maybe(t.Object),
 	}),
 	Immutable.from({
 		zoom: 5,
 		center: defaultCenter,
 		bounds: undefined,
+		geolocating: false,
+		geolocation: null,
+		geolocationError: null,
 	}),
 	{
 		[RECEIVE_USER]: [
@@ -25,7 +35,36 @@ export default createReducer(
 			(state, { payload: { user } }) => {
 				return state.set('user', user);
 			},
-		]
+		],
+		[GEOLOCATE]: [
+			t.Any,
+			(state) => {
+				return state
+					.set('geolocating', true)
+					.set('geolocationError', null)
+					;
+			},
+		],
+		[RECEIVE_GEOLOCATION]: [
+			t.Any,
+			(state, { payload: { location } }) => {
+				return state
+					.set('geolocating', false)
+					.set('geolocation', location)
+					.set('geolocationError', null)
+					;
+			},
+		],
+		[RECEIVE_GEOLOCATION_FAILURE]: [
+			t.Any,
+			(state, { payload: { error } }) => {
+				return state
+					.set('geolocating', false)
+					.set('geolocation', null)
+					.set('geolocationError', error)
+					;
+			},
+		],
 	},
 	'flyover'
 );
