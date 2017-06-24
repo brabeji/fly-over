@@ -14,6 +14,22 @@ const geolocate = (options) => {
 	});
 };
 
+const delocate = (location) => {
+	return new Promise((resolve, reject) => {
+		const geocoder = new google.maps.Geocoder;
+		geocoder.geocode({'location': {
+			lat: location.coords.latitude,
+			lng: location.coords.longitude,
+		}}, (results, status) => {
+			if(status !== 'OK') {
+				reject('Error');
+			} else {
+				resolve(results);
+			}
+		});
+	});
+};
+
 const options = {
 	enableHighAccuracy: true,
 	timeout: 5000,
@@ -26,7 +42,9 @@ const options = {
 function* geolocationTask() {
 	try {
 		const location = yield call(geolocate, options);
-		yield put(receiveGeolocation({ location }));
+		const places = yield call(delocate, location);
+
+		yield put(receiveGeolocation({ location, places }));
 	} catch (error) {
 		yield put(receiveGeolocationFailure({ error }));
 	}

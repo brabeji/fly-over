@@ -22,6 +22,7 @@ const withGeolocationEnabledScreen = compose(
 			return {
 				geolocation: g(state, 'flyover.geolocation'),
 				flights: g(state, 'flyover.flights'),
+				user: g(state, 'flyover.user'),
 				bounds: g(state, 'flyover.bounds'),
 				zoom: g(state, 'flyover.zoom'),
 				center: g(state, 'flyover.center'),
@@ -44,6 +45,7 @@ const renderGeolocationEnabledScreen = (props) => {
 		zoom,
 		geolocation,
 		flights,
+		user,
 	} = props;
 
 	return (
@@ -83,6 +85,7 @@ const renderGeolocationEnabledScreen = (props) => {
 							lat: 50.0835754,
 							lng: 14.448092999999998
 						},
+						icon: user.picture.data.url,
 					},
 					{
 						id: 2,
@@ -90,6 +93,7 @@ const renderGeolocationEnabledScreen = (props) => {
 							lat: 51.509865,
 							lng: -0.118092
 						},
+						icon: user.picture.data.url,
 					},
 					{
 						id: 3,
@@ -97,6 +101,7 @@ const renderGeolocationEnabledScreen = (props) => {
 							lat: 48.1458923,
 							lng: 17.1071373,
 						},
+						icon: user.picture.data.url,
 					}
 				]}
 				center={center}
