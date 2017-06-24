@@ -63,6 +63,7 @@ class Map extends Component {
 								key={marker.id}
 								options={marker}
 								position={marker.location}
+								icon={marker.icon}
 							/>
 						);
 					})}
