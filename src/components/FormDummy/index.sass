@@ -1,0 +1,34 @@
+@import "../../stylesheets/base"
+
+.SuccesCheck
+  width: 50px
+  height: 50px
+  background-color: rgba($colorSuccess, .75)
+  border-radius: 100%
+  border: 2px solid $colorSuccess
+  text-align: center
+  animation: show .5s ease-out
+  animation-delay: 2s
+  background-image: url("./img/check.svg")
+  background-position: center
+  background-repeat: no-repeat
+  animation-fill-mode: forwards
+  opacity: 0
+  transform: scale(0.1)
+
+@keyframes show
+  0%
+    opacity: 0
+    transform: scale(0.1)
+
+  25%
+    opacity: 1
+    transform: scale(0)
+
+  75%
+    opacity: 1
+    transform: scale(1.1)
+
+  100%
+    opacity: 1
+    transform: scale(1)
