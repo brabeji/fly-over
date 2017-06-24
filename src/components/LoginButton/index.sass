@@ -1,0 +1,124 @@
+@import "../../stylesheets/base"
+
+.LoginButton
+  color: $white
+  background-color: #3C5A99
+  font-size: 25px
+  line-height: 30px
+  position: relative
+  padding: 10px
+  z-index: 1000
+  cursor: pointer
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.45)
+  border: 3px solid #3C5A99
+  border-radius: 3px
+  transition: all ease .25s
+
+  .path1,
+  .path2
+    transition: all ease .25s
+
+  &:hover
+    color: #3C5A99
+    background-color: $white
+
+    .path1
+      fill: #3C5A99
+
+    .path2
+      fill: #ffffff
+
+  &-holder
+    position: absolute
+    width: 100%
+    top: 450px
+    z-index: 1000
+    text-align: center
+
+  &-svg
+    margin-right: 10px
+    height: 30px
+    width: auto
+    position: relative
+    top: 4px
+
+  &--busy
+    padding-right: 51px
+    background-color: #0dc20d
+    border-color: #0dc20d
+    transition: all ease .25s
+    cursor: progress
+
+    &:hover
+      color: #0dc20d
+      border-color: $white
+
+      .globe
+        border-color: #0dc20d
+
+        svg
+          path
+            stroke: #0dc20d
+
+  &--error
+    padding-right: 51px
+    background-color: rgb(240, 16, 22)
+    border-color: rgb(240, 16, 22)
+    transition: all ease .25s
+
+    .globe
+      svg
+        animation: rotation .5s linear 0s infinite
+
+
+    &:hover
+      color: rgb(240, 16, 22)
+      border-color: $white
+
+      .globe
+        border-color: rgb(240, 16, 22)
+
+        svg
+
+
+          path
+            stroke: rgb(240, 16, 22)
+
+
+.globe
+  border: 1px solid $white
+  border-radius: 50%
+  height: 25px
+  right: 0
+  overflow: hidden
+  position: absolute
+  top: 50%
+  transform: translate(-50%, -50%)
+  width: 25px
+  transition: all ease .25s
+
+  svg
+    animation: rotation 5s linear 0s infinite
+    height: 25px
+    width: 97px
+    transition: all ease .25s
+
+
+    path
+      stroke: $white
+      transition: all ease .25s
+
+@keyframes rotation
+  from
+    transform: translateX(0)
+
+  from
+    transform: translateX(-50%)
+
+@keyframes rotation-bad
+  from
+    transform: translateX(0)
+
+  from
+    transform: translateX(-10%)
+

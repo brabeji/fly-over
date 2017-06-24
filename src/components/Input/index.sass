@@ -1,0 +1,117 @@
+@import "../../stylesheets/variables.sass"
+
+.Input
+  display: block
+  position: relative
+  border-bottom: 2px $colorText--lightMore solid
+  margin-bottom: 23px
+
+  &:last-of-type
+    margin-bottom: 33px
+
+  &:after
+    content: ""
+    display: block
+    position: absolute
+    width: 0
+    height: 2px
+    transition: $transition--normal
+
+.Input--dark
+  border-bottom-color: $colorPrimary--dark2
+
+  .Input-labelText
+    color: $colorPrimary--dark2
+
+  .Input-text
+    color: $colorPrimary--light
+
+.Input--empty
+  .Input-labelText
+    top: 15px
+    font-size: 15px
+
+.Input--active,
+.Input--filled
+  &:after
+    content: ""
+    display: block
+    position: absolute
+    width: 100%
+    background-color: $colorText--lightMore
+    bottom: -2px
+
+  .Input-labelText
+    top: 1px
+    font-size: 10px
+
+.Input--active
+  &:after
+    content: ""
+    display: block
+    position: absolute
+    width: 100%
+    background-color: $colorMove
+    bottom: -2px
+
+  .Input-labelText
+    top: 1px
+    font-size: 10px
+
+
+.Input--hasCheck
+  &:before
+    content: ""
+    display: block
+    position: absolute
+    width: 27px
+    height: 17px
+    background-image: url(./img/check-green.png)
+    background-repeat: no-repeat
+    right: 1px
+    top: 23px
+
+.Input--error
+  &:after
+    content: ""
+    display: block
+    position: absolute
+    width: 100%
+    background-color: $colorSuccessNot
+    bottom: -2px
+
+.Input--readOnly
+  border: none
+  pointer-events: none
+
+  &:after
+    background-color: transparent
+
+
+.Input-label
+  display: block
+
+.Input-labelText
+  color: $colorText--lightMore
+  font-size: 14px
+  font-weight: 800
+  letter-spacing: 1px
+  margin-bottom: 3px
+  position: relative
+  top: 21px
+  transition: $transition--normal
+
+.Input-labelTextMoved
+  top: 1px
+  font-size: 10px
+
+.Input-text
+  width: 100%
+  color: $colorText--light
+  font-size: 16px
+  font-weight: 500
+  letter-spacing: 1.6px
+  line-height: 20px
+  border: none
+  background-color: transparent
+  padding-bottom: 5px
