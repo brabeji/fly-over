@@ -16,6 +16,7 @@
     "classnames": "^2.2.5",
     "client-core": "https://github.com/stackscz/client-core.git#069cd4356684f523ea7711152c3840feb72cf39a",
     "isomorphic-fetch": "^2.2.1",
+    "lodash": "^4.17.4",
     "react": "^15.6.1",
     "react-dom": "^15.6.0",
     "react-facebook-login": "^3.6.2",
