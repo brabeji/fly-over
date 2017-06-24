@@ -19,6 +19,8 @@ const withGeolocationEnabledScreen = compose(
 	connect(
 		(state) => {
 			return {
+				geolocation: g(state, 'flyover.geolocation'),
+				flights: g(state, 'flyover.flights'),
 				bounds: g(state, 'flyover.bounds'),
 				zoom: g(state, 'flyover.zoom'),
 				center: g(state, 'flyover.center'),
@@ -26,8 +28,8 @@ const withGeolocationEnabledScreen = compose(
 		},
 	),
 	withHandlers({
-		handleFetchFlights: ({ dispatch, user }) => () => {
-			dispatch(fetchFlights({ query: { flyFrom: 'CZ', to: 'SK' } }))
+		handleFetchFlights: ({ dispatch, user }) => ({flyFromMulti}) => {
+			dispatch(fetchFlights({ query: { flyFrom: flyFromMulti.map((airport) => airport.code), to: 'SK' } }))
 		},
 	}),
 	pure,
@@ -39,13 +41,29 @@ const renderGeolocationEnabledScreen = (props) => {
 		bounds,
 		center,
 		zoom,
+		geolocation,
+		flights,
 	} = props;
 
 	return (
 		<div>
 			<h2>Geolocation Screen</h2>
 
+			you are here:
+			<pre>{JSON.stringify(geolocation, null, 2)}</pre>
+
+			fly my frined from these airports
 			<InvitationForm onSubmitInvitation={handleFetchFlights} />
+
+			<ul>
+				{
+					flights.map((flight) => {
+						return (
+							<li>{flight.price}</li>
+						);
+					})
+				}
+			</ul>
 
 			<Map
 				loadingElement={(

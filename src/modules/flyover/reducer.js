@@ -8,6 +8,8 @@ import {
 	GEOLOCATE,
 	RECEIVE_GEOLOCATION,
 	RECEIVE_GEOLOCATION_FAILURE,
+	FETCH_FLIGHTS,
+	RECEIVE_FLIGHTS,
 } from './actions';
 
 const defaultCenter = {
@@ -20,6 +22,8 @@ export default createReducer(
 		user: t.maybe(t.Object),
 		geolocating: t.Boolean,
 		geolocation: t.maybe(t.Object),
+		flights: t.Array,
+		fetchingFlights: t.Boolean,
 	}),
 	Immutable.from({
 		zoom: 5,
@@ -28,6 +32,8 @@ export default createReducer(
 		geolocating: false,
 		geolocation: null,
 		geolocationError: null,
+		flights: [],
+		fetchingFlights: false,
 	}),
 	{
 		[RECEIVE_USER]: [
@@ -63,6 +69,18 @@ export default createReducer(
 					.set('geolocation', null)
 					.set('geolocationError', error)
 					;
+			},
+		],
+		[FETCH_FLIGHTS]: [
+			t.Any,
+			(state, { payload: { flights } }) => {
+				return state.set('fetchingFlights', true);
+			},
+		],
+		[RECEIVE_FLIGHTS]: [
+			t.Any,
+			(state, { payload: { flights } }) => {
+				return state.set('flights', flights).set('fetchingFlights', false);
 			},
 		],
 	},

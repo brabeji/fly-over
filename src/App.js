@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 
 const FB_APP_ID = process.env.FB_APP_ID;
 
+const GOOGLE_API_KEY = 'AIzaSyCtTfmY2KB9JziKF2N1SgaEyty2GY1_ZP0';
+
 // Lodash
 import { get as g } from 'lodash';
 
@@ -54,7 +56,7 @@ const renderAppScreen = (props) => {
 			<LoginScreen
 				facebookLoginButtonClick={handleFacebookCallback}
 			/>
-		)
+		);
 	}
 
 	if(geolocating) {

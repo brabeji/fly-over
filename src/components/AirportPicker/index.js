@@ -1,22 +1,49 @@
 import React from 'react';
-import { debounce } from 'lodash';
-import { compose, withHandlers } from 'recompose';
+import { get as g, reduce, debounce } from 'lodash';
+import { compose, withProps, withHandlers } from 'recompose';
 import ReactSelect from 'react-select';
 import axios from 'axios';
+import 'react-select/dist/react-select.css';
 
 const withAirportPicker = compose(
 	withHandlers(
 		{
-			handleQueryChange: ({ setQuery }) => debounce(
-				(e) => {
-					setQuery('aa');
-				},
-				500
-			),
-			handleLoadOptions: () => () => {
-				axios.get().then(() => {
-					debugger;
-				})
+			handleLoadOptions: ({ ps }) => (query) => {
+				if (query) {
+					return axios.get(
+						'http://api.geonames.org/searchJSON',
+						{
+							params: {
+								username: 'brabeji',
+								fcode: 'AIRP',
+								q: query,
+								style: 'FULL',
+							}
+						}
+					).then((response) => {
+						return {
+							options: reduce(
+								g(response, 'data.geonames', []),
+								(aacc, airport) => {
+									const code = reduce(g(airport, 'alternateNames', []), (acc, aname) => acc ? acc : (aname.lang === 'iata' ? aname.name : null), null);
+									if (!code) {
+										return aacc;
+									}
+									return [
+										...aacc,
+										{
+											...airport,
+											code,
+										},
+									];
+								},
+								[]
+							),
+						}
+					});
+				} else {
+					return Promise.resolve({ options: [] });
+				}
 			}
 		}
 	)
@@ -36,6 +63,8 @@ const renderAirportPicker = ({
 			    loadOptions={handleLoadOptions}
 				onChange={onChange}
 			    value={value}
+				labelKey="toponymName"
+				valueKey="code"
 			/>
 		</div>
 	)
