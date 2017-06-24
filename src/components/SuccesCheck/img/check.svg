@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" className="SuccesCheck-svg" width="34" height="24" viewBox="0 0 34 24" version="1.1">
+  <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd" strokeLinecap="square">
+    <g className="SuccesCheck-path" stroke="#FFF8F0" strokeWidth="3">
+      <g transform="translate(3.000000, 3.000000)">
+        <path d="M0.5 8.5L9.69 17.69M27.29 0.7L9.69 17.69"/>
+      </g>
+    </g>
+  </g>
+</svg>
