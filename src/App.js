@@ -5,14 +5,11 @@ import { connect } from 'react-redux';
 
 const FB_APP_ID = process.env.FB_APP_ID;
 
-// Components
-import Map from './components/Map';
-
 // Lodash
-import { get as g, noop } from 'lodash';
+import { get as g } from 'lodash';
 
 // Actions
-import { receiveUser, post, geolocate, fetchFlights } from 'modules/flyover/actions';
+import { receiveUser, post } from 'modules/flyover/actions';
 
 // Screens
 import LoginScreen from './screens/LoginScreen';
@@ -25,6 +22,8 @@ const withAppScreen = compose(
 		(state) => {
 			return {
 				user: g(state, 'flyover.user'),
+				geolocation: g(state, 'flyover.geolocation'),
+				geolocating: g(state, 'flyover.geolocating'),
 			};
 		},
 	),
@@ -44,8 +43,11 @@ const renderAppScreen = (props) => {
 	const {
 		user,
 		handleFacebookCallback,
-		geolocation = false,
+		geolocation,
+		geolocating,
 	} = props;
+
+	console.log(props);
 
 	if(!user) {
 		return (
@@ -53,6 +55,10 @@ const renderAppScreen = (props) => {
 				facebookLoginButtonClick={handleFacebookCallback}
 			/>
 		)
+	}
+
+	if(geolocating) {
+		return <div>Loading...</div>
 	}
 
 	if(!geolocation) {

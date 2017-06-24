@@ -1,15 +1,20 @@
 import React from 'react';
 import { compose, pure, withHandlers } from 'recompose';
+import { connect } from 'react-redux';
 
 // Components
 import Logo from '../../components/Logo';
 import Planet from '../../components/Planet';
 import Button from '../../components/Button';
 
+// Actions
+import { geolocate } from '../../modules/flyover/actions';
+
 const withGeolocationNotEnabledScreen = compose(
+	connect(),
 	withHandlers({
-		handleOnButtonClick: () => () => {
-			console.log('Ask geolocation again');
+		handleGeolocate: ({ dispatch }) => () => {
+			dispatch(geolocate());
 		},
 	}),
 	pure,
@@ -17,7 +22,7 @@ const withGeolocationNotEnabledScreen = compose(
 
 const renderGeolocationNotEnabledScreen = (props) => {
 	const {
-		handleOnButtonClick,
+		handleGeolocate,
 	} = props;
 
 	return (
@@ -25,7 +30,7 @@ const renderGeolocationNotEnabledScreen = (props) => {
 			<Logo />
 			<Planet />
 			<Button
-				onButtonClick={handleOnButtonClick}
+				onButtonClick={handleGeolocate}
 			>
 				Ask geolocation
 			</Button>

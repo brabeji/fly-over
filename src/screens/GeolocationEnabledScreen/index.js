@@ -1,10 +1,13 @@
 import React from 'react';
-import { compose, pure, withHandlers, withState } from 'recompose';
+import { compose, pure, withHandlers } from 'recompose';
 import { connect } from 'react-redux';
-import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 
 // Components
 import Map from '../../components/Map';
+import InvitationForm from 'components/InvitationForm';
+
+// Actions
+import { fetchFlights } from 'modules/flyover/actions';
 
 // Lodash
 import { get as g, noop } from 'lodash';
@@ -22,18 +25,9 @@ const withGeolocationEnabledScreen = compose(
 			};
 		},
 	),
-	withState('address', 'setAddress', 'Prague'),
 	withHandlers({
-		handleFormSubmit: ({ address }) => (event) => {
-			event.preventDefault();
-
-			geocodeByAddress(address)
-				.then(results => getLatLng(results[0]))
-				.then(latLng => console.log('Success', latLng))
-				.catch(error => console.error('Error', error));
-		},
-		handleOnChangePlacesAutocomplete: ({ setAddress }) => (e) => {
-			setAddress(e);
+		handleFetchFlights: ({ dispatch, user }) => () => {
+			dispatch(fetchFlights({ query: { flyFrom: 'CZ', to: 'SK' } }))
 		},
 	}),
 	pure,
@@ -41,24 +35,18 @@ const withGeolocationEnabledScreen = compose(
 
 const renderGeolocationEnabledScreen = (props) => {
 	const {
-		handleFormSubmit,
-		handleOnChangePlacesAutocomplete,
+		handleFetchFlights,
 		bounds,
 		center,
 		zoom,
-		address,
 	} = props;
 
 	return (
 		<div>
 			<h2>Geolocation Screen</h2>
-			<form onSubmit={handleFormSubmit}>
-				<PlacesAutocomplete inputProps={{
-					value: address,
-					onChange: handleOnChangePlacesAutocomplete,
-				}} />
-				<button type="submit">Submit</button>
-			</form>
+
+			<InvitationForm onSubmitInvitation={handleFetchFlights} />
+
 			<Map
 				loadingElement={(
 					<div>spinner</div>
